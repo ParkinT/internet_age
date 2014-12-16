@@ -1,0 +1,89 @@
+/* CSS declarations go here */
+
+* {
+  font-family: Arial;
+  font-size: 12pt;
+  margin: none;
+  padding: none;
+}
+
+header {
+  background-color: #477087;   
+}
+
+h1 {
+  font-family: Arial;
+  font-size: 32pt;
+}
+
+h1.title {
+  background-color: #6F8FA2;
+  padding: 5%;
+  color: #ffffff;
+}
+
+.centered {
+  text-align:center;  
+}
+
+.emphasis {
+  font-size: 28pt;
+  text-decoration: bold;
+}
+
+#birth-year {
+  text-decoration: bold;
+  font-size: 160%;
+}
+
+#date-form {
+  background-color: #477087;   
+  padding: 20px;
+  margin: 2px 5px;
+  width: 430px;
+}
+
+.highcharts-container {
+  display: none;
+}
+
+.chart-show {
+  display: block;
+}
+
+.years-activate {
+  position: relative;
+  top: -400px;
+  display: block;
+  float: right;
+  margin-right: 40%;
+  margin-left: 10%;
+}
+
+text.highcharts-title {
+ top: 15px;
+}
+
+/* For sticky footer */
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -32px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 32px; 
+}
+.site-footer {
+  background: #f0f0f0;
+  text-align: center;
+  padding-top: 0.5em;
+}
+/* ================= */
+

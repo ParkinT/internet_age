@@ -1,0 +1,7 @@
+// Susy documentation:  http://susydocs.oddbird.net/en/latest/install/
+@import "susy";
+
+$susy: (
+  columns: 3,  // The number of columns in your grid
+  gutters: 1/8, // The size of a gutter in relation to a single column
+);
