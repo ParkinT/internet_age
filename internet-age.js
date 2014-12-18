@@ -1,4 +1,5 @@
 var yearstotal;  //global scope
+var custom_chart; 
 
 //global definition of the events to report
 var events = [
@@ -37,93 +38,48 @@ if (Meteor.isClient) {
       //register event handler
       $("#birth-year").change(function() {
         
-      var birthdate = event.target.value;
-      yearstotal = THISYEAR - birthdate;
+        var birthdate = event.target.value;
+        yearstotal = THISYEAR - birthdate;
 
-      //this one is ALWAYS displayed first
-      displayChart('internetyears', 'Internet in Life', 'Life with Internet', chartData(yearstotal, 'Without Internet', 'With Internet', '#55BF3B', '#DDDF0D', 1991), true);
+        //display custom chart - if it exists
+        if (undefined !== typeof custom_chart)
+        {
+          console.log(custom_chart);
+          var name = (typeof custom_chart.title === 'string') ? custom_chart.title : "Untitled";
+          var year = (!isNaN(parseInt(custom_chart.year))) ? custom_chart.year : birthdate;
+          displayChart(name + 'years', name, name, chartData(yearstotal, 'Before ' + name, 'Since ' + name, '#505060', '#f55fD6', year), true);
+        } else {
+          //this one is ALWAYS displayed first
+          displayChart('internetyears', 'Internet in Life', 'Life with Internet', chartData(yearstotal, 'Without Internet', 'With Internet', '#55BF3B', '#DDDF0D', 1991), true);
+        }
+        
+        for (var e = 0; e < events.length; e++)
+        {
+          displayChart(events[e].details.id, events[e].details.title, events[e].details.label, chartData(yearstotal, events[e].details.before, events[e].details.since, events[e].details.colors[0], events[e].details.colors[1], events[e].details.year));
+        }
 
-    for (var e = 0; e < events.length; e++)
-    {
-      displayChart(events[e].details.id, events[e].details.title, events[e].details.label, chartData(yearstotal, events[e].details.before, events[e].details.since, events[e].details.colors[0], events[e].details.colors[1], events[e].details.year));
-    }
-        
-      $('#date-form').fadeOut(2.0);
-      $('.site-footer').fadeIn(2.0);
-        
-    })
+        $('#date-form').remove();
+        $('.site-footer').fadeIn(2.0);
+
+      })
   });
   
-  //custom chart : based on route.query.params
-  Template.chart.rendered = function()
-  {
-
-  }
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+
   });
 }
 
-
-
-/*   THIS IS A BETTER CHART FORMAT TO USE
-$(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'area'
-        },
-        title: {
-            text: 'Portion(s) of your life that included Internet Technology'
-        },
-        subtitle: {
-            text: 'EREH TXET NI LLIF'
-        },
-        xAxis: {
-            categories: ['Internet', 'Google', 'iPad', 'iPhone', 'Star Wars'],
-            tickmarkPlacement: 'on',
-            title: {
-                enabled: false
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Percent'
-            }
-        },
-        tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} millions)<br/>',
-            shared: true
-        },
-        plotOptions: {
-            area: {
-                stacking: 'percent',
-                lineColor: '#ffffff',
-                lineWidth: 1,
-                marker: {
-                    lineWidth: 1,
-                    lineColor: '#ffffff'
-                }
-            }
-        },
-        series: [{
-            name: 'Asia',
-            data: [502, 635, 809, 947, 1402, 3634, 5268]
-        }, {
-            name: 'Africa',
-            data: [106, 107, 111, 133, 221, 767, 1766]
-        }, {
-            name: 'Europe',
-            data: [163, 203, 276, 408, 547, 729, 628]
-        }, {
-            name: 'America',
-            data: [18, 31, 54, 156, 339, 818, 1201]
-        }, {
-            name: 'Oceania',
-            data: [2, 2, 2, 6, 13, 30, 46]
-        }]
-    });
+Router.route('root', {
+//Router.route('chart', {
+  path: '/chart/:title?/:year?',
+  data: function() {
+    custom_chart = this.params;
+  }
 });
-*/
+
+
+
