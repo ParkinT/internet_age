@@ -16,7 +16,9 @@
   </form>
   </header>
   
-  {{>root}}
+    {{#each chart_details}}
+  {{> chart}}
+    {{/each}}
   <hr />
   <div class="page-wrap">
     
@@ -28,4 +30,6 @@
 
 <template name="root">
 </template>  
- 
+<template name="chart">
+  <h2>{{title}}&nbsp;:&nbsp;{{year}}</h2>
+</template>
