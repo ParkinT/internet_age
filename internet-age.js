@@ -43,9 +43,9 @@ if (Meteor.isClient) {
         //display custom chart - if it exists
         if ('undefined' !== typeof custom_chart)
         {
-          var name = (typeof custom_chart.title === 'string') ? custom_chart.title : "Untitled";
+          var name = ((typeof custom_chart.title === 'string') ? custom_chart.title : "Untitled").replace(/[^\w]/g, ' ');  //eliminate invalid characters
           var year = (!isNaN(parseInt(custom_chart.year))) ? custom_chart.year : birthdate;
-          displayChart(name + 'years', name, name, chartData(yearstotal, 'Before ' + name, 'Since ' + name, '#505060', '#f55fD6', year), true);
+          displayChart(name.replace(/[\s]+/g, '-') + 'years', name, name, chartData(yearstotal, 'Before ' + name, 'Since ' + name, '#505060', '#f55fD6', year), true);
         } else {
           //this one is ALWAYS displayed first
           displayChart('internetyears', 'Internet in Life', 'Life with Internet', chartData(yearstotal, 'Without Internet', 'With Internet', '#55BF3B', '#DDDF0D', 1991), true);
