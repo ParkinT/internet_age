@@ -65,6 +65,7 @@ if (Meteor.isClient) {
   Template.chart.helpers({
     chart_details: function() { return custom_chart; }
   });
+  
 }
 
 if (Meteor.isServer) {
